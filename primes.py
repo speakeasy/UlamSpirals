@@ -1,3 +1,4 @@
+MEMORY_MB_MAX = 4096
 class primes:
     def factor(self, n, p=2):
         s = 0
@@ -8,17 +9,23 @@ class primes:
             q *= p
         return s, d // (q // p)
 
-    def primes_sieve(self, limit):
-        limitn = limit + 1
-        not_prime = set()
-        primes = []
-        for i in range(2, limitn):
-            if i in not_prime:
-                continue
-            for f in range(i * 2, limitn, i):
-                not_prime.add(f)
-            primes.append(i)
-        return primes
+    def sieve(self, end):
+        prime_list = [2, 3]
+        sieve_list = [True] * (end + 1)
+        for each_number in self.candidate_range(self, end):
+            if sieve_list[each_number]:
+                prime_list.append(each_number)
+                for multiple in range(each_number * each_number, end + 1, each_number):
+                    sieve_list[multiple] = False
+        return prime_list
+
+    def candidate_range(self, n):
+        cur = 5
+        incr = 2
+        while cur < n + 1:
+            yield cur
+            cur += incr
+            incr ^= 6  # or incr = 6-incr, or however
 
     def strong_pseudoprime(self, n, a, s=None, d=None):
         if (s is None) or (d is None):
