@@ -1,7 +1,7 @@
 from primes import primes
 
 
-class ulamspiral:
+class ulamspirals:
     primes = None
 
     def __init__(self):

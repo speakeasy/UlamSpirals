@@ -8,6 +8,18 @@ class primes:
             q *= p
         return s, d // (q // p)
 
+    def primes_sieve(self, limit):
+        limitn = limit + 1
+        not_prime = set()
+        primes = []
+        for i in range(2, limitn):
+            if i in not_prime:
+                continue
+            for f in range(i * 2, limitn, i):
+                not_prime.add(f)
+            primes.append(i)
+        return primes
+
     def strong_pseudoprime(self, n, a, s=None, d=None):
         if (s is None) or (d is None):
             s, d = self.factor(n, 2)
